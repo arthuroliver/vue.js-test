@@ -5,9 +5,14 @@
       </template>
 
       <template #default>
-        <button @click="abaAtiva = 'ContatoEmpresa'">Contato</button>
-        <button @click="abaAtiva = 'Servicos'">Serviços</button>
-        <button @click="abaAtiva = 'Sobre'">Sobre</button>
+        <div>
+          <button @click="abaAtiva = 'ContatoEmpresa'">Contato</button>
+          <button @click="abaAtiva = 'Servicos'">Serviços</button>
+          <button @click="abaAtiva = 'Sobre'">Sobre</button>
+          <transition>
+            <h1 v-if="abaAtiva">{{abaAtiva}}</h1>
+          </transition>
+        </div>
 
         <keep-alive>
           <component v-bind:is="abaAtiva"></component>
@@ -37,7 +42,7 @@
     },
     data() {
       return {
-        abaAtiva: "ContatoEmpresa"
+        abaAtiva: false
       }
     }
   };
@@ -45,5 +50,13 @@
 </script>
 
 <style>
+
+.v-enter {
+  opacity: 0;
+}
+
+.v-enter-active {
+  transition: opacity 2s;
+}
 
 </style>
