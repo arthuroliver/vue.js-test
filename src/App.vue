@@ -9,14 +9,12 @@
           <button @click="abaAtiva = 'ContatoEmpresa'">Contato</button>
           <button @click="abaAtiva = 'Servicos'">Serviços</button>
           <button @click="abaAtiva = 'Sobre'">Sobre</button>
-          <transition>
-            <h1 v-if="abaAtiva">{{abaAtiva}}</h1>
-          </transition>
-        </div>
+          <button @click="abaAtiva = 'Modal'">Modal</button>
 
-        <keep-alive>
-          <component v-bind:is="abaAtiva"></component>
-        </keep-alive>
+          <keep-alive>
+            <component v-bind:is="abaAtiva"></component>
+          </keep-alive>
+        </div>
       </template>
 
       <template v-slot:footer>
@@ -32,6 +30,7 @@
     components: {
       ModalPrincipal: () => import("./components/ModalPrincipal.vue"),
       ContatoEmpresa: () => import("./components/ContatoEmpresa.vue"),
+      Modal: () => import("./components/Modal.vue"),
       Servicos: () => import("./components/Servicos.vue"),
       Sobre: function() {
         return import("./components/Sobre.vue");
