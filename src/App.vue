@@ -1,61 +1,41 @@
 <template>
-  <div id="app">
-    <modal-principal>
-      <template v-slot:header>
-      </template>
-
-      <template #default>
-        <div>
-          <button @click="abaAtiva = 'ContatoEmpresa'">Contato</button>
-          <button @click="abaAtiva = 'Servicos'">Serviços</button>
-          <button @click="abaAtiva = 'Sobre'">Sobre</button>
-          <button @click="abaAtiva = 'Modal'">Modal</button>
-
-          <keep-alive>
-            <component v-bind:is="abaAtiva"></component>
-          </keep-alive>
-        </div>
-      </template>
-
-      <template v-slot:footer>
-      </template>
-    </modal-principal>
+  <div>
+    <button @click="componenteAtivo = 'sobre'">Sobre</button>
+    <button @click="componenteAtivo = 'servicos'">Serviços</button>
+    <transition mode="out-in">
+      <component v-bind:is="componenteAtivo"></component>
+    </transition>
   </div>
-
 </template>
 
 <script>
-  export default {
-    name: "app",
-    components: {
-      ModalPrincipal: () => import("./components/ModalPrincipal.vue"),
-      ContatoEmpresa: () => import("./components/ContatoEmpresa.vue"),
-      Modal: () => import("./components/Modal.vue"),
-      Servicos: () => import("./components/Servicos.vue"),
-      Sobre: function() {
-        return import("./components/Sobre.vue");
-      },
-      PaginaAdministracao: function() {
-        return import("./components/PaginaAdministracao.vue");
-      }
-    },
-    data() {
-      return {
-        abaAtiva: false
-      }
+import sobre from "./components/Sobre.vue"
+import servicos from "./components/Servicos.vue"
+
+export default {
+  components: {
+    sobre,
+    servicos
+  },
+  data() {
+    return {
+      componenteAtivo: "sobre"
     }
-  };
+  }
+};
 
 </script>
 
 <style>
 
-.v-enter {
-  opacity: 0;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.1s ease;
 }
 
-.v-enter-active {
-  transition: opacity 2s;
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 </style>
